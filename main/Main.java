@@ -7,7 +7,7 @@ public class Main extends JPanel implements Runnable{
     static Main main;
     JFrame jf;
     Thread thread;
-    Wave[] wav = new Wave[200];
+    Wave[] wav = new Wave[60];
 
     final int WIDTH = 725, HEIGHT = 370;
 
