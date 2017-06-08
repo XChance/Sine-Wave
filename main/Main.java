@@ -76,7 +76,6 @@ public class Main extends JPanel implements Runnable{
         for(int i = 0; i < wav.length; i++){
             if(i != 0) {
                 wav[i].setX(wav[i-1].getX() - 6);
-                wav[i].setY((wav[i-1].getY() - 6));
             }
         }
     }
