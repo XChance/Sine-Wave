@@ -2,18 +2,18 @@ package main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Scanner;
 
 public class Main extends JPanel implements Runnable{
     static Main main;
     JFrame jf;
     Thread thread;
-    Wave wav;
+    Wave[] wav = new Wave[200];
 
     final int WIDTH = 725, HEIGHT = 370;
 
     public Main() {
-        wav = new Wave(10, 160);
+        instantiate();
+        setPos();
 
         jf = new JFrame("Sine Wave");
         jf.setSize(WIDTH, HEIGHT);
@@ -30,8 +30,8 @@ public class Main extends JPanel implements Runnable{
     @Override
     public void run() {
         while(true){
-            wav.update();
-            wav.checkCollision();
+            update();
+            checkCollision();
             repaint();
 
             try {
@@ -45,8 +45,40 @@ public class Main extends JPanel implements Runnable{
     public void paintComponent(Graphics g){
         g.setColor(Color.BLACK);
         g.fillRect(0,0, WIDTH, HEIGHT);
-        wav.draw(g);
-        wav.spawnChild(wav,60, g);
+        draw(g);
+    }
+
+    public void instantiate(){
+        for(int i = 0; i < wav.length; i++){
+            wav[i] = new Wave(10, 160);
+        }
+    }
+
+    public void draw(Graphics g){
+        for(int i = 0; i < wav.length; i++){
+            wav[i].draw(g);
+        }
+    }
+
+    public void checkCollision(){
+        for(int i = 0; i < wav.length; i++){
+            wav[i].checkCollision(wav[i]);
+        }
+    }
+
+    public void update(){
+        for(int i = 0; i < wav.length; i++){
+            wav[i].update();
+        }
+    }
+
+    public void setPos(){
+        for(int i = 0; i < wav.length; i++){
+            if(i != 0) {
+                wav[i].setX(wav[i-1].getX() - 6);
+                wav[i].setY((wav[i-1].getY() - 6));
+            }
+        }
     }
 
     public static void main(String[] args){
@@ -58,3 +90,4 @@ public class Main extends JPanel implements Runnable{
     }
 
 }
+
