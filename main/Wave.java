@@ -18,7 +18,7 @@ public class Wave {
 
         this.yBase = top + yScale;
 
-        x = -4;
+        x = -6;
     }
 
     public void update(){
@@ -26,9 +26,9 @@ public class Wave {
         y = (int)(yBase - Math.sin(Math.toRadians(x)) * yScale);
     }
 
-    public void checkCollision(){
-        if(x >= 725) {
-            x = -4;
+    public void checkCollision(Wave wave){
+        if(wave.getX() >= 725) {
+            wave.setX(-6);
         }
     }
 
@@ -37,7 +37,7 @@ public class Wave {
         temp.setY(wave.getY() - 6);
         temp.setX(wave.getX() - 6);
         temp.update();
-        temp.checkCollision();
+        temp.checkCollision(temp);
         temp.draw(g);
         if(children >= 2) {
             spawnChild(temp,children - 1, g);
